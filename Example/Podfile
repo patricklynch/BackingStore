@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'BackingStore_Example' do
+  pod 'BackingStore', :path => '../'
+
+  target 'BackingStore_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
