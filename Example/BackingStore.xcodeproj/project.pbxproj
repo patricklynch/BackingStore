@@ -35,7 +35,7 @@
 /* Begin PBXFileReference section */
 		008F161A6C07674ECC9F9631 /* Pods-BackingStore_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackingStore_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BackingStore_Example/Pods-BackingStore_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		047C66E7BC0E198B2A3EC668 /* Pods_BackingStore_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BackingStore_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		06BD75190A461AACDF138D04 /* BackingStore.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BackingStore.podspec; path = ../BackingStore.podspec; sourceTree = "<group>"; };
+		06BD75190A461AACDF138D04 /* BackingStore.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BackingStore.podspec; path = ../BackingStore.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		0CE2BFDF26A640BB3CEDF5F0 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		3AC6E7C3C4A2067A30268FA5 /* Pods_BackingStore_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BackingStore_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* BackingStore_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BackingStore_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
