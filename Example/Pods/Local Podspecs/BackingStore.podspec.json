@@ -1,0 +1,22 @@
+{
+  "name": "BackingStore",
+  "version": "0.1.0",
+  "summary": "A short description of BackingStore.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/patricklynch/BackingStore",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "patricklynch": "pdlynch@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/patricklynch/BackingStore.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "BackingStore/Classes/**/*"
+}

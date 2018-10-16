@@ -1,0 +1,6 @@
+framework module BackingStore {
+  umbrella header "BackingStore-umbrella.h"
+
+  export *
+  module * { export * }
+}

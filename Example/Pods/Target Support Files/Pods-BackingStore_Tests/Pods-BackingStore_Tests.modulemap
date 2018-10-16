@@ -1,0 +1,6 @@
+framework module Pods_BackingStore_Tests {
+  umbrella header "Pods-BackingStore_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

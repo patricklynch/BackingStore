@@ -1,0 +1,16 @@
+PODS:
+  - BackingStore (0.1.0)
+
+DEPENDENCIES:
+  - BackingStore (from `../`)
+
+EXTERNAL SOURCES:
+  BackingStore:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  BackingStore: cc64e00ddad090789e86328cc8d93598fb804884
+
+PODFILE CHECKSUM: c8b98fa3cb2e741b556c95fa88c3788069785bbe
+
+COCOAPODS: 1.5.3
