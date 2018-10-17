@@ -106,12 +106,12 @@ public final class BackingStore<SectionType: Hashable & Comparable> {
             }
         }
         
-        let batchUpdate = MainQueueBlockOperation { batchUpdate in
+        let batchUpdate = MainQueueBlockOperation { op in
             guard let delegate = dataSource.backingStoreView else {
-                batchUpdate.cancel()
+                op.cancel()
                 return
             }
-            guard !batchUpdate.isCancelled else {
+            guard !op.isCancelled else {
                 return
             }
             
@@ -136,12 +136,12 @@ public final class BackingStore<SectionType: Hashable & Comparable> {
                 if let diff = BackingStoreDiff(from: oldValues, to: newValues) {
                     DispatchQueue.main.async {
                         delegate.update(diff: diff) {
-                            batchUpdate.finish()
+                            op.finish()
                         }
                     }
                 } else {
                     DispatchQueue.main.async {
-                        batchUpdate.finish()
+                        op.finish()
                     }
                 }
             }
@@ -176,13 +176,21 @@ private class MainQueueBlockOperation: Operation {
     }
     
     override func main() {
-        guard !isCancelled && !isFinished else {
-            return
-        }
-        DispatchQueue.main.async() {
+        DispatchQueue.main.async() { [weak self] in
+            guard let self = self else { return }
+            guard !self.isCancelled && !self.isFinished else {
+                self.semaphore.signal()
+                return
+            }
             self.block(self)
         }
         let _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+    }
+    
+    override func cancel() {
+        super.cancel()
+        
+        semaphore.signal()
     }
     
     func finish() {
@@ -194,11 +202,5 @@ public extension RawRepresentable where RawValue : Comparable {
     
     static func <(lhs: Self, rhs: Self) -> Bool {
         return lhs.rawValue < rhs.rawValue
-    }
-}
-
-extension Collection {
-    subscript(safe index: Index) -> Iterator.Element? {
-        return startIndex..<endIndex ~= index ? self[index] : nil
     }
 }
