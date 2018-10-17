@@ -3,7 +3,7 @@ import UIKit
 public final class BackingStore<SectionType: Hashable & Comparable> {
     
     public class Section {
-        let type: SectionType
+        public let type: SectionType
         
         var header: Any? = nil
         var footer: Any? = nil
@@ -190,9 +190,7 @@ private class MainQueueBlockOperation: Operation {
     }
 }
 
-extension RawRepresentable where RawValue : Comparable {
-    
-    // MARK: - Comparable
+public extension RawRepresentable where RawValue : Comparable {
     
     static func <(lhs: Self, rhs: Self) -> Bool {
         return lhs.rawValue < rhs.rawValue

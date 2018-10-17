@@ -1,36 +1,32 @@
 import Foundation
 
-enum SingleSectionType: Int, Hashable, Comparable {
+public enum SingleSectionType: Int, Hashable, Comparable {
     case `default`
     
-    var hashValue: Int {
+    public var hashValue: Int {
         return rawValue.hashValue
-    }
-    
-    static func <(lhs: SingleSectionType, rhs: SingleSectionType) -> Bool {
-        return false
     }
 }
 
 extension BackingStore where SectionType == SingleSectionType {
     
-    var isEmpty: Bool {
+    public var isEmpty: Bool {
         return section(at: 0)?.isEmpty ?? true
     }
     
-    var itemCount: Int {
+    public var itemCount: Int {
         return section(at: 0)?.itemCount ?? 0
     }
     
-    var allItems: [Any] {
+    public var allItems: [Any] {
         return section(at: 0)?.allItems ?? []
     }
     
-    func item(at index: Int) -> Any? {
+    public func item(at index: Int) -> Any? {
         return section(at: 0)?.visibleItems.array[safe: index]
     }
     
-    func update(
+    public func update(
         items: [Any],
         header: Any? = nil,
         footer: Any? = nil,
