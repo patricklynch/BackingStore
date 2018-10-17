@@ -40,6 +40,35 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="yBi-mZ-64Z">
                                 <rect key="frame" x="0.0" y="44" width="375" height="483"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="InstructionsCell" rowHeight="51" id="0U8-g4-1ua" customClass="InstructionsCell" customModule="BackingStore_Example" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="51"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0U8-g4-1ua" id="j98-SG-vdR">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instructions" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aaH-Vy-PNV">
+                                                    <rect key="frame" x="142" y="11" width="91" height="19.5"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="16"/>
+                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aaH-Vy-PNV" secondAttribute="trailing" constant="20" id="2Xq-Z3-hOM"/>
+                                                <constraint firstItem="aaH-Vy-PNV" firstAttribute="top" secondItem="j98-SG-vdR" secondAttribute="top" constant="11" id="6pJ-KA-ms2"/>
+                                                <constraint firstItem="aaH-Vy-PNV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="j98-SG-vdR" secondAttribute="leading" constant="20" id="7tv-Ei-duG"/>
+                                                <constraint firstItem="aaH-Vy-PNV" firstAttribute="centerX" secondItem="j98-SG-vdR" secondAttribute="centerX" id="dMC-5C-Iwo"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="aaH-Vy-PNV" secondAttribute="bottom" constant="11" id="wH6-SW-fbO"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="mainTextLabel" destination="aaH-Vy-PNV" id="7bL-Wk-QUf"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Yis-LO-vWn">
                                 <rect key="frame" x="10" y="537" width="355" height="120"/>

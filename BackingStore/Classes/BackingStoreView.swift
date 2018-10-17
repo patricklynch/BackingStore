@@ -98,16 +98,6 @@ extension UITableView: BackingStoreView {
     }
     
     public func update(diff: BackingStoreDiff, completion: (()->())?) {
-        /*guard numberOfSections > 0 else {
-            alpha = 0.0
-            reloadData()
-            UIView.animate(withDuration: 0.35) {
-                self.alpha = 1.0
-            }
-            completion?()
-            return
-        }*/
-        
         beginUpdates()
         if !diff.insertedSections.isEmpty {
             insertSections(IndexSet(diff.insertedSections), with: .fade)

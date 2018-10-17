@@ -3,12 +3,18 @@ import BackingStore
 
 class TodoDataSource: NSObject, UITableViewDataSource, BackingStoreDataSource {
     
+    let instructions = """
+        Tap any row to mark the todo as complete.
+        Swipe left to delete an uncompleted todo.
+        Reload to undo any changes that have been made.
+    """
+    
     enum SectionType: Int, Comparable {
         static func < (lhs: TodoDataSource.SectionType, rhs: TodoDataSource.SectionType) -> Bool {
             return lhs.rawValue < rhs.rawValue
         }
         
-        case notCompleted, completed
+        case instructions, notCompleted, completed
     }
     
     var allTodos: [Todo] = [] {
@@ -18,10 +24,20 @@ class TodoDataSource: NSObject, UITableViewDataSource, BackingStoreDataSource {
     }
     
     func onContentUpdated() {
+        guard !allTodos.isEmpty else {
+            backingStore.update(itemsForSections: [:], dataSource: self)
+            return
+        }
+        
+        let groupedTodos = Dictionary(grouping: allTodos.sorted()) { todo in
+            return todo.completed ? SectionType.completed : SectionType.notCompleted
+        }
         backingStore.update(
-            itemsForSections: Dictionary(grouping: allTodos.sorted()) { todo in
-                return todo.completed ? SectionType.completed : SectionType.notCompleted
-            },
+            itemsForSections: [
+                .instructions: [instructions],
+                .completed: groupedTodos[.completed] ?? [],
+                .notCompleted: groupedTodos[.notCompleted] ?? [],
+            ],
             dataSource: self
         )
     }
@@ -40,15 +56,17 @@ class TodoDataSource: NSObject, UITableViewDataSource, BackingStoreDataSource {
     var backingStoreView: BackingStoreView?
     
     func decorate(cell: UIView, at indexPath: IndexPath, animated: Bool) {
-        guard let cell = cell as? TodoCell,
-            let todo = backingStore.item(at: indexPath) as? Todo else {
-                return
+        if let cell = cell as? TodoCell,
+            let todo = backingStore.item(at: indexPath) as? Todo {
+            cell.viewData = TodoCell.ViewData(
+                title: todo.title.localizedCapitalized,
+                subtitle: todo.completed ? "Completed" : "Not Completed"
+            )
+            
+        } else if let cell = cell as? InstructionsCell,
+            let instructions = backingStore.item(at: indexPath) as? String {
+            cell.viewData = InstructionsCell.ViewData(text: instructions)
         }
-        
-        cell.viewData = TodoCell.ViewData(
-            title: todo.title.localizedCapitalized,
-            subtitle: todo.completed ? "Completed" : "Not Completed"
-        )
     }
     
     // MARK: - UITableViewTodoDataSource
@@ -66,6 +84,8 @@ class TodoDataSource: NSObject, UITableViewDataSource, BackingStoreDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell", for: indexPath)
             decorate(cell: cell, at: indexPath, animated: false)
             return cell
+        } else if backingStore.item(at: indexPath) is String {
+            return tableView.dequeueReusableCell(withIdentifier: "InstructionsCell", for: indexPath)
         } else {
             fatalError("Unsupported data type.")
         }

@@ -15,6 +15,7 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		7899681C217736600036D122 /* InstructionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7899681B217736600036D122 /* InstructionsCell.swift */; };
 		78C638A02175FE2800947A30 /* TodoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78C6389F2175FE2800947A30 /* TodoCell.xib */; };
 		78C638A2217619A100947A30 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C638A1217619A100947A30 /* Todo.swift */; };
 		78C638A4217619B300947A30 /* TodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C638A3217619B300947A30 /* TodoCell.swift */; };
@@ -48,6 +49,7 @@
 		607FACE51AFB9204008FA782 /* BackingStore_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BackingStore_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		7899681B217736600036D122 /* InstructionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsCell.swift; sourceTree = "<group>"; };
 		78C6389F2175FE2800947A30 /* TodoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodoCell.xib; sourceTree = "<group>"; };
 		78C638A1217619A100947A30 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		78C638A3217619B300947A30 /* TodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCell.swift; sourceTree = "<group>"; };
@@ -104,16 +106,17 @@
 			isa = PBXGroup;
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
-				607FACD71AFB9204008FA782 /* ViewController.swift */,
-				78C638A7217619D900947A30 /* TodosDataSource.swift */,
-				78C638A5217619C600947A30 /* TodosService.swift */,
+				607FACDC1AFB9204008FA782 /* Images.xcassets */,
+				7899681B217736600036D122 /* InstructionsCell.swift */,
+				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
+				607FACD91AFB9204008FA782 /* Main.storyboard */,
+				607FACD31AFB9204008FA782 /* Supporting Files */,
 				78C638A1217619A100947A30 /* Todo.swift */,
 				78C638A3217619B300947A30 /* TodoCell.swift */,
-				607FACD91AFB9204008FA782 /* Main.storyboard */,
-				607FACDC1AFB9204008FA782 /* Images.xcassets */,
-				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				78C6389F2175FE2800947A30 /* TodoCell.xib */,
-				607FACD31AFB9204008FA782 /* Supporting Files */,
+				78C638A7217619D900947A30 /* TodosDataSource.swift */,
+				78C638A5217619C600947A30 /* TodosService.swift */,
+				607FACD71AFB9204008FA782 /* ViewController.swift */,
 			);
 			name = "Example for BackingStore";
 			path = BackingStore;
@@ -353,6 +356,7 @@
 				78C638A8217619D900947A30 /* TodosDataSource.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				78C638A2217619A100947A30 /* Todo.swift in Sources */,
+				7899681C217736600036D122 /* InstructionsCell.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				78C638A6217619C600947A30 /* TodosService.swift in Sources */,
 				78C638A4217619B300947A30 /* TodoCell.swift in Sources */,

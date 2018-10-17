@@ -101,14 +101,17 @@ public final class BackingStore<SectionType: Hashable & Comparable> {
         completion updateCompletion: (()->Void)? = nil) {
         
         for operation in batchUpdateQueue.operations {
-            operation.cancel()
+            if !operation.isExecuting {
+                operation.cancel()
+            }
         }
         
-        let batchUpdate = BlockOperation()
-        batchUpdate.addExecutionBlock { [weak self, weak dataSource] in
-            guard let self = self,
-                let backingStoreView = dataSource?.backingStoreView,
-                !batchUpdate.isCancelled else {
+        let batchUpdate = MainQueueBlockOperation { batchUpdate in
+            guard let delegate = dataSource.backingStoreView else {
+                batchUpdate.cancel()
+                return
+            }
+            guard !batchUpdate.isCancelled else {
                 return
             }
             
@@ -128,43 +131,62 @@ public final class BackingStore<SectionType: Hashable & Comparable> {
             if let footers = footers {
                 self.sections.forEach { $0.footer = footers[$0.type] }
             }
-            if let diff = BackingStoreDiff(from: oldValues, to: newValues) {
-                let semaphore = DispatchSemaphore(value: 0)
-                DispatchQueue.main.async {
-                    guard !batchUpdate.isCancelled else {
-                        semaphore.signal()
-                        return
+            
+            DispatchQueue.global(qos: .userInitiated).async {
+                if let diff = BackingStoreDiff(from: oldValues, to: newValues) {
+                    DispatchQueue.main.async {
+                        delegate.update(diff: diff) {
+                            batchUpdate.finish()
+                        }
                     }
-                    backingStoreView.update(diff: diff) {
-                        semaphore.signal()
+                } else {
+                    DispatchQueue.main.async {
+                        batchUpdate.finish()
                     }
                 }
-                let _ = semaphore.wait(timeout: DispatchTime.distantFuture)
             }
         }
         batchUpdateQueue.addOperation(batchUpdate)
         
-        let redecorate = BlockOperation()
-        redecorate.addExecutionBlock { [weak dataSource, weak batchUpdate] in
-            guard let dataSource = dataSource,
-                let backingStoreView = dataSource.backingStoreView,
-                !redecorate.isCancelled,
-                batchUpdate?.isCancelled == false else {
+        let redeorate = MainQueueBlockOperation { redeorate in
+            guard let delegate = dataSource.backingStoreView, !redeorate.isCancelled else {
+                redeorate.finish()
                 return
             }
-            let semaphore = DispatchSemaphore(value: 0)
-            DispatchQueue.main.async {
-                backingStoreView.redecorateVisibleItems(in: dataSource, animated: true)
-                semaphore.signal()
-            }
-            let _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+            delegate.redecorateVisibleItems(in: dataSource, animated: true)
+            redeorate.finish()
         }
-        redecorate.completionBlock = {
+        redeorate.completionBlock = {
             DispatchQueue.main.async {
                 updateCompletion?()
             }
         }
-        batchUpdateQueue.addOperation(redecorate)
+        batchUpdateQueue.addOperation(redeorate)
+    }
+}
+
+private class MainQueueBlockOperation: Operation {
+    
+    private let semaphore = DispatchSemaphore(value: 0)
+    
+    let block: (MainQueueBlockOperation) -> ()
+    
+    init(block: @escaping (MainQueueBlockOperation) -> ()) {
+        self.block = block
+    }
+    
+    override func main() {
+        guard !isCancelled && !isFinished else {
+            return
+        }
+        DispatchQueue.main.async() {
+            self.block(self)
+        }
+        let _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+    }
+    
+    func finish() {
+        semaphore.signal()
     }
 }
 
