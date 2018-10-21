@@ -1,4 +1,4 @@
-# ![BackingStore Logo](logo-backingstore.png)
+# ![BackingStore Logo](logo-backing-store.png)
 
 A set of components that model some data which is to be displayed in a `UICollectionView` or `UITableView`.  When that data changes, these components automatically calculate the changes necessary to perform a smooth, performant batch update.  This includes inserted sections, inserted index paths, deleted sections, deleted indexpaths and moved indx paths.  What this means is that you never have to call reloadData() ever again, and every change you make to the contents of a table or collection view will be perfectly animated. Pretty cool, ain't it?
 
