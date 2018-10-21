@@ -1,11 +1,11 @@
 # ![BackingStore Logo](logo-backing-store.png)
 
-A set of components that model some data which is to be displayed in a `UICollectionView` or `UITableView`.  When that data changes, these components automatically calculate the changes necessary to perform a smooth, performant batch update.  This includes inserted sections, inserted index paths, deleted sections, deleted indexpaths and moved indx paths.  What this means is that you never have to call reloadData() ever again, and every change you make to the contents of a table or collection view will be perfectly animated. Pretty cool, ain't it?
-
 [![CI Status](https://img.shields.io/travis/patricklynch/BackingStore.svg?style=flat)](https://travis-ci.org/patricklynch/BackingStore)
 [![Version](https://img.shields.io/cocoapods/v/BackingStore.svg?style=flat)](https://cocoapods.org/pods/BackingStore)
 [![License](https://img.shields.io/cocoapods/l/BackingStore.svg?style=flat)](https://cocoapods.org/pods/BackingStore)
 [![Platform](https://img.shields.io/cocoapods/p/BackingStore.svg?style=flat)](https://cocoapods.org/pods/BackingStore)
+
+A set of components that model some data which is to be displayed in a `UICollectionView` or `UITableView`.  When that data changes, these components automatically calculate the changes necessary to perform a smooth, performant batch update.  This includes inserted sections, inserted index paths, deleted sections, deleted indexpaths and moved indx paths.  What this means is that you never have to call reloadData() ever again, and every change you make to the contents of a table or collection view will be perfectly animated. Pretty cool, ain't it?
 
 ## Example
 
