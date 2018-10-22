@@ -16,6 +16,8 @@
 		78C6389C2175EBBA00947A30 /* BackingStoreDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C638972175EBB900947A30 /* BackingStoreDataSource.swift */; };
 		78C6389D2175EBBA00947A30 /* BackingStoreDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C638982175EBB900947A30 /* BackingStoreDiff.swift */; };
 		78C6389E2175EBBA00947A30 /* BackingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C638992175EBB900947A30 /* BackingStore.swift */; };
+		78C8B8EF217DC4E8007F502D /* UICollectionView+BackingStoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C8B8EE217DC4E8007F502D /* UICollectionView+BackingStoreView.swift */; };
+		78C8B8F1217DC4FA007F502D /* UITableView+BackingStoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C8B8F0217DC4FA007F502D /* UITableView+BackingStoreView.swift */; };
 		8A99B4AD0091B53E51D4969806827A9C /* Pods-BackingStore_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 72B4F626601E68CCCE59C96F36A727A6 /* Pods-BackingStore_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BA04E42DC6B66EE33E42F2622DEF49D1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
 		BBDBBA76593D8E33149DDA1745C5EB11 /* BackingStore-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 57AD666BD7E223E8848AFEFB16689AA0 /* BackingStore-dummy.m */; };
@@ -64,6 +66,8 @@
 		78C638972175EBB900947A30 /* BackingStoreDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackingStoreDataSource.swift; path = BackingStore/Classes/BackingStoreDataSource.swift; sourceTree = "<group>"; };
 		78C638982175EBB900947A30 /* BackingStoreDiff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackingStoreDiff.swift; path = BackingStore/Classes/BackingStoreDiff.swift; sourceTree = "<group>"; };
 		78C638992175EBB900947A30 /* BackingStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackingStore.swift; path = BackingStore/Classes/BackingStore.swift; sourceTree = "<group>"; };
+		78C8B8EE217DC4E8007F502D /* UICollectionView+BackingStoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UICollectionView+BackingStoreView.swift"; path = "BackingStore/Classes/UICollectionView+BackingStoreView.swift"; sourceTree = "<group>"; };
+		78C8B8F0217DC4FA007F502D /* UITableView+BackingStoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UITableView+BackingStoreView.swift"; path = "BackingStore/Classes/UITableView+BackingStoreView.swift"; sourceTree = "<group>"; };
 		82C6CCEB2F826B84FE9CA875A5C7AC52 /* Pods-BackingStore_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BackingStore_Example.release.xcconfig"; sourceTree = "<group>"; };
 		8AEA3B444A25AB600EF18622E4808C9F /* Pods-BackingStore_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BackingStore_Example-dummy.m"; sourceTree = "<group>"; };
 		8F63B0B579A3EC004FAD5F98B7A5ABC9 /* Pods-BackingStore_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BackingStore_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -222,6 +226,8 @@
 				78C638972175EBB900947A30 /* BackingStoreDataSource.swift */,
 				78C638982175EBB900947A30 /* BackingStoreDiff.swift */,
 				78C638962175EBB900947A30 /* BackingStoreView.swift */,
+				78C8B8EE217DC4E8007F502D /* UICollectionView+BackingStoreView.swift */,
+				78C8B8F0217DC4FA007F502D /* UITableView+BackingStoreView.swift */,
 				C49F1A238AD66BE1AC1C6E5A2CEB7C08 /* Pod */,
 				4D82B9E0822953350E705FD4023D52F7 /* Support Files */,
 			);
@@ -390,11 +396,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78C8B8F1217DC4FA007F502D /* UITableView+BackingStoreView.swift in Sources */,
 				78C6389B2175EBBA00947A30 /* BackingStoreView.swift in Sources */,
 				78C6389A2175EBBA00947A30 /* BackingStore+SingleSection.swift in Sources */,
 				78C6389C2175EBBA00947A30 /* BackingStoreDataSource.swift in Sources */,
 				BBDBBA76593D8E33149DDA1745C5EB11 /* BackingStore-dummy.m in Sources */,
 				78C6389D2175EBBA00947A30 /* BackingStoreDiff.swift in Sources */,
+				78C8B8EF217DC4E8007F502D /* UICollectionView+BackingStoreView.swift in Sources */,
 				78C6389E2175EBBA00947A30 /* BackingStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
