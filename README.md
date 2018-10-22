@@ -11,8 +11,6 @@ A set of components that model some data which is to be displayed in a `UICollec
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.  The example projects demonstrates how to build a basic table view with a data source that contains a `BackingStore` instance.  It provides some actions that you can take to change the contents of the table view which are then updated by the `BackingStore` instance and its associated components.
 
-## Requirements
-
 ## Installation
 
 To install using CocoaPods, add the following to your project Podfile:
@@ -173,7 +171,7 @@ Separating these two phases is important so that they can be done independently.
 ### Connect Everything
 
 In usual uses of `UICollectionView` and `UITableView` the `dataSource` property must be set with the intended `UITableViewDataSource` or `UICollectionViewDataSource` objects.  When using `BackingStore` there are two connections that have to be made: (1) Set your data source as the `dataSource` of the table view, and (2) set the table view as the `backingStoreView` of your data source.
-```
+```swift
 dataSource.backingStoreView = tableView
 collectionView.dataSource = dataSource
 ```
