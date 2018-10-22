@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'BackingStore'
-  s.version          = '0.1.2'
+  s.version          = '0.1.4'
   s.summary          = 'A framework that automatically handles perfect batch updates in table views and collection views.'
 
 # This description is used to generate tags and improve search results.
