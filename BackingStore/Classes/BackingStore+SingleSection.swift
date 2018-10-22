@@ -60,7 +60,7 @@ extension BackingStore where SectionType == SingleSectionType {
 }
 
 extension Collection {
-    public subscript(safe index: Index) -> Iterator.Element? {
+    subscript(safe index: Index) -> Iterator.Element? {
         return startIndex..<endIndex ~= index ? self[index] : nil
     }
 }

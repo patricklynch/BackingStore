@@ -93,12 +93,42 @@ public final class BackingStore<SectionType: Hashable & Comparable> {
         return nil
     }
     
+    private func update(headers: [SectionType: Any]?, footers: [SectionType: Any]?) {
+        if let headers = headers {
+            sections.forEach { $0.header = headers[$0.type] }
+        }
+        if let footers = footers {
+            sections.forEach { $0.footer = footers[$0.type] }
+        }
+    }
+    
+    private func sections(from itemsForSections: [SectionType: [Any]]) -> [Section] {
+        return Array(itemsForSections.keys).sorted().map { sectionType in
+            let items = itemsForSections[sectionType] ?? []
+            return Section(
+                type: sectionType,
+                visibleItems: NSOrderedSet(array: items)
+            )
+        }
+    }
+    
     public func update(
         itemsForSections: [SectionType: [Any]],
         headers: [SectionType: Any]? = nil,
         footers: [SectionType: Any]? = nil,
         dataSource: BackingStoreDataSource,
+        animated: Bool = true,
         completion updateCompletion: (()->Void)? = nil) {
+        
+        guard animated else {
+            self.sections = self.sections(from: itemsForSections)
+            update(headers: headers, footers: footers)
+            dataSource.backingStoreView?.reloadAll(animated: false) {
+                updateCompletion?()
+
+            }
+            return
+        }
         
         for operation in batchUpdateQueue.operations {
             if !operation.isExecuting {
@@ -116,21 +146,9 @@ public final class BackingStore<SectionType: Hashable & Comparable> {
             }
             
             let oldValues = self.dictionaryRepresentation()
-            self.sections = Array(itemsForSections.keys).sorted().map { sectionType in
-                let items = itemsForSections[sectionType] ?? []
-                return Section(
-                    type: sectionType,
-                    visibleItems: NSOrderedSet(array: items)
-                )
-            }
+            self.sections = self.sections(from: itemsForSections)
             let newValues = self.dictionaryRepresentation()
-            
-            if let headers = headers {
-                self.sections.forEach { $0.header = headers[$0.type] }
-            }
-            if let footers = footers {
-                self.sections.forEach { $0.footer = footers[$0.type] }
-            }
+            self.update(headers: headers, footers: footers)
             
             DispatchQueue.global(qos: .userInitiated).async {
                 if let diff = BackingStoreDiff(from: oldValues, to: newValues) {
