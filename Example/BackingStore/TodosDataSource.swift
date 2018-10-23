@@ -10,10 +10,6 @@ class TodoDataSource: NSObject, UITableViewDataSource, BackingStoreDecorator {
     """
     
     enum SectionType: Int, Comparable {
-        static func < (lhs: TodoDataSource.SectionType, rhs: TodoDataSource.SectionType) -> Bool {
-            return lhs.rawValue < rhs.rawValue
-        }
-        
         case instructions, notCompleted, completed
     }
     

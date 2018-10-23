@@ -30,6 +30,7 @@ extension BackingStore where SectionType == SingleSectionType {
         items: [Any],
         header: Any? = nil,
         footer: Any? = nil,
+        animated: Bool = true,
         completion : (()->Void)? = nil) {
         
         let headers: [SingleSectionType: Any]
@@ -52,6 +53,7 @@ extension BackingStore where SectionType == SingleSectionType {
             ],
             headers: headers,
             footers: footers,
+            animated: animated,
             completion: completion
         )
     }

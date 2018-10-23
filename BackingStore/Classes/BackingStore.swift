@@ -39,7 +39,7 @@ public final class BackingStore<SectionType: Hashable & Comparable> {
         return queue
     }()
     
-    private var sections: [Section] = []
+    public private(set) var sections: [Section] = []
     
     public func section(for type: SectionType) -> Section? {
         return sections.first { $0.type == type }
@@ -224,7 +224,7 @@ private class MainQueueBlockOperation: Operation {
 
 public extension RawRepresentable where RawValue : Comparable {
     
-    static func <(lhs: Self, rhs: Self) -> Bool {
+    public static func <(lhs: Self, rhs: Self) -> Bool {
         return lhs.rawValue < rhs.rawValue
     }
 }
