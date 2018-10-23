@@ -4,8 +4,8 @@ import UIKit
 /// See extension for `UICollectionView`
 public protocol BackingStoreView: class {
     func update(diff: BackingStoreDiff, completion: (()->())?)
-    func redecorateItems(section: Int, in dataSource: BackingStoreDataSource, animated: Bool)
-    func redecorateVisibleItems(in dataSource: BackingStoreDataSource, animated: Bool)
+    func redecorateItems(section: Int, with decorator: BackingStoreDecorator, animated: Bool)
+    func redecorateVisibleItems(with decorator: BackingStoreDecorator, animated: Bool)
     func reloadAll(animated: Bool, completion: (()->())?)
 }
 

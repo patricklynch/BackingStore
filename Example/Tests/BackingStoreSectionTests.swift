@@ -1,29 +1,33 @@
 import XCTest
 import BackingStore
 
-class TestDataSource: BackingStoreDataSource {
-    
-    var backingStoreView: BackingStoreView? = UITableView()
+class TestDecorator: BackingStoreDecorator {
     
     func decorate(cell: UIView, at indexPath: IndexPath, animated: Bool) { }
 }
 
 class BackingStoreSectionTests: XCTestCase {
     
+    let testDecorator = TestDecorator()
+    let tableView = UITableView()
+    let backingStore = BackingStore<TestSectionType>()
+    
+    override func setUp() {
+        backingStore.view = tableView
+        backingStore.decorator = testDecorator
+    }
+    
     func testMovedIndexPaths() {
         let expectation = XCTestExpectation(description: "BackingStoreUpdate")
-        let dataSource = TestDataSource()
-        let backingStore = BackingStore<TestSectionType>()
         backingStore.update(
             itemsForSections: [
                 .one: ["a", "b", "c"],
                 .two: []
             ],
-            dataSource: dataSource,
             completion: {
-                XCTAssertEqual(backingStore.sectionCount, 2)
+                XCTAssertEqual(self.backingStore.sectionCount, 2)
                 
-                if let section = backingStore.section(at: 0) {
+                if let section = self.backingStore.section(at: 0) {
                     XCTAssertEqual(section.allItems.count, 3)
                     XCTAssertFalse(section.isEmpty)
                     XCTAssertEqual(section.type, .one)
@@ -32,7 +36,7 @@ class BackingStoreSectionTests: XCTestCase {
                     XCTFail()
                 }
                 
-                if let section = backingStore.section(at: 1) {
+                if let section = self.backingStore.section(at: 1) {
                     XCTAssertEqual(section.allItems.count, 0)
                     XCTAssert(section.isEmpty)
                     XCTAssertEqual(section.type, .two)
@@ -41,13 +45,13 @@ class BackingStoreSectionTests: XCTestCase {
                     XCTFail()
                 }
                 
-                XCTAssertNotNil(backingStore.section(for: .one))
-                XCTAssertNotNil(backingStore.section(for: .two))
-                XCTAssertNil(backingStore.section(for: .three))
+                XCTAssertNotNil(self.backingStore.section(for: .one))
+                XCTAssertNotNil(self.backingStore.section(for: .two))
+                XCTAssertNil(self.backingStore.section(for: .three))
                 
-                XCTAssertNotNil(backingStore.section(at: IndexPath(row: 0, section: 0)))
-                XCTAssertNotNil(backingStore.section(at: IndexPath(row: 0, section: 1)))
-                XCTAssertNil(backingStore.section(at: IndexPath(row: 0, section: 2)))
+                XCTAssertNotNil(self.backingStore.section(at: IndexPath(row: 0, section: 0)))
+                XCTAssertNotNil(self.backingStore.section(at: IndexPath(row: 0, section: 1)))
+                XCTAssertNil(self.backingStore.section(at: IndexPath(row: 0, section: 2)))
                 
                 expectation.fulfill()
             }

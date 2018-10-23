@@ -11,7 +11,8 @@ class ViewController: UIViewController, UITableViewDelegate {
         super.viewDidLoad()
         
         dataSource.registerCells(in: tableView)
-        dataSource.backingStoreView = tableView
+        dataSource.backingStore.view = tableView
+        dataSource.backingStore.decorator = dataSource
         tableView.dataSource = dataSource
         tableView.delegate = self
         

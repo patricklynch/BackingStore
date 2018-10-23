@@ -13,7 +13,7 @@
 		59B23BD7FF488FD94B860C3BA94EE5A5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
 		78C6389A2175EBBA00947A30 /* BackingStore+SingleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C638952175EBB900947A30 /* BackingStore+SingleSection.swift */; };
 		78C6389B2175EBBA00947A30 /* BackingStoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C638962175EBB900947A30 /* BackingStoreView.swift */; };
-		78C6389C2175EBBA00947A30 /* BackingStoreDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C638972175EBB900947A30 /* BackingStoreDataSource.swift */; };
+		78C6389C2175EBBA00947A30 /* BackingStoreDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C638972175EBB900947A30 /* BackingStoreDecorator.swift */; };
 		78C6389D2175EBBA00947A30 /* BackingStoreDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C638982175EBB900947A30 /* BackingStoreDiff.swift */; };
 		78C6389E2175EBBA00947A30 /* BackingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C638992175EBB900947A30 /* BackingStore.swift */; };
 		78C8B8EF217DC4E8007F502D /* UICollectionView+BackingStoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C8B8EE217DC4E8007F502D /* UICollectionView+BackingStoreView.swift */; };
@@ -63,7 +63,7 @@
 		7672132539879D4FF7DEE788A37A6BEA /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		78C638952175EBB900947A30 /* BackingStore+SingleSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "BackingStore+SingleSection.swift"; path = "BackingStore/Classes/BackingStore+SingleSection.swift"; sourceTree = "<group>"; };
 		78C638962175EBB900947A30 /* BackingStoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackingStoreView.swift; path = BackingStore/Classes/BackingStoreView.swift; sourceTree = "<group>"; };
-		78C638972175EBB900947A30 /* BackingStoreDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackingStoreDataSource.swift; path = BackingStore/Classes/BackingStoreDataSource.swift; sourceTree = "<group>"; };
+		78C638972175EBB900947A30 /* BackingStoreDecorator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackingStoreDecorator.swift; path = BackingStore/Classes/BackingStoreDecorator.swift; sourceTree = "<group>"; };
 		78C638982175EBB900947A30 /* BackingStoreDiff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackingStoreDiff.swift; path = BackingStore/Classes/BackingStoreDiff.swift; sourceTree = "<group>"; };
 		78C638992175EBB900947A30 /* BackingStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackingStore.swift; path = BackingStore/Classes/BackingStore.swift; sourceTree = "<group>"; };
 		78C8B8EE217DC4E8007F502D /* UICollectionView+BackingStoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UICollectionView+BackingStoreView.swift"; path = "BackingStore/Classes/UICollectionView+BackingStoreView.swift"; sourceTree = "<group>"; };
@@ -223,7 +223,7 @@
 			children = (
 				78C638992175EBB900947A30 /* BackingStore.swift */,
 				78C638952175EBB900947A30 /* BackingStore+SingleSection.swift */,
-				78C638972175EBB900947A30 /* BackingStoreDataSource.swift */,
+				78C638972175EBB900947A30 /* BackingStoreDecorator.swift */,
 				78C638982175EBB900947A30 /* BackingStoreDiff.swift */,
 				78C638962175EBB900947A30 /* BackingStoreView.swift */,
 				78C8B8EE217DC4E8007F502D /* UICollectionView+BackingStoreView.swift */,
@@ -399,7 +399,7 @@
 				78C8B8F1217DC4FA007F502D /* UITableView+BackingStoreView.swift in Sources */,
 				78C6389B2175EBBA00947A30 /* BackingStoreView.swift in Sources */,
 				78C6389A2175EBBA00947A30 /* BackingStore+SingleSection.swift in Sources */,
-				78C6389C2175EBBA00947A30 /* BackingStoreDataSource.swift in Sources */,
+				78C6389C2175EBBA00947A30 /* BackingStoreDecorator.swift in Sources */,
 				BBDBBA76593D8E33149DDA1745C5EB11 /* BackingStore-dummy.m in Sources */,
 				78C6389D2175EBBA00947A30 /* BackingStoreDiff.swift in Sources */,
 				78C8B8EF217DC4E8007F502D /* UICollectionView+BackingStoreView.swift in Sources */,

@@ -2,18 +2,18 @@ import UIKit
 
 extension UICollectionView: BackingStoreView {
     
-    public func redecorateVisibleItems(in dataSource: BackingStoreDataSource, animated: Bool) {
+    public func redecorateVisibleItems(with decorator: BackingStoreDecorator, animated: Bool) {
         for indexPath in indexPathsForVisibleItems {
             if let cell = cellForItem(at: indexPath) {
-                dataSource.decorate(cell: cell, at: indexPath, animated: animated)
+                decorator.decorate(cell: cell, at: indexPath, animated: animated)
             }
         }
     }
     
-    public func redecorateItems(section: Int, in dataSource: BackingStoreDataSource, animated: Bool) {
+    public func redecorateItems(section: Int, with decorator: BackingStoreDecorator, animated: Bool) {
         for indexPath in indexPathsForVisibleItems.filter({ $0.section == section }) {
             if let cell = cellForItem(at: indexPath) {
-                dataSource.decorate(cell: cell, at: indexPath, animated: animated)
+                decorator.decorate(cell: cell, at: indexPath, animated: animated)
             }
         }
     }

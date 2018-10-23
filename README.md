@@ -75,13 +75,13 @@ For single sections sections:
 let backingStore = BackingStore<MySectionType>()
 ```
 
-### Confirm Data Source to `BackingStoreDataSource`
-`BackingStoreDataSource` is a protocol that defines and object that can fit into this group of interrated components (which includes `BackingStore`) in order to allow batch updates to be executed once they are calculated by `BackingStore`.  It's requirements are simple, but essential to the functioning of this interrated logic.  Our `UITableViewDataSource` implementation defined above will also serve as the `BackingStoreDataSource` implementation.
+### Confirm Data Source to `BackingStoreDecorator`
+`BackingStoreDecorator` is a protocol that defines and object that can fit into this group of interrated components (which includes `BackingStore`) in order to allow batch updates to be executed once they are calculated by `BackingStore`.  It's requirements are simple, but essential to the functioning of this interrated logic.  Our `UITableViewDataSource` implementation defined above will also serve as the `BackingStoreDecorator` implementation.
 
 ```Swift
-class MyDataSource: NSObject, UITableViewDataSource, BackingStoreDataSource {
+class MyDataSource: NSObject, UITableViewDataSource, BackingStoreDecorator {
 
-    // MARK: - BackingStoreDataSource
+    // MARK: - BackingStoreDecorator
     
     var backingStoreView: BackingStoreView?
 
@@ -127,7 +127,7 @@ dataSource.backingStoreView = collectionView
 collectionView.dataSource = dataSource
 ```
 
-`BackingStoreView` exists only so that `UICollectionView` and `UITableView` can be extended with methods that can queue batch updates.  The structure of these updates and the input to the API of `BackingStoreView` matches the output of `BackingStore`.  In our setup, the `BackingStoreDataSource` that we've created contains a `BackingStoreView` instance as well as a `BackingStore` instance and will   oversee the connetion between these subcomponents.
+`BackingStoreView` exists only so that `UICollectionView` and `UITableView` can be extended with methods that can queue batch updates.  The structure of these updates and the input to the API of `BackingStoreView` matches the output of `BackingStore`.  In our setup, the `BackingStoreDecorator` that we've created contains a `BackingStoreView` instance as well as a `BackingStore` instance and will   oversee the connetion between these subcomponents.
 
 6) Call `dataSource.backingStore.setInitial(items:, dataSource:)` function with the `dataSource` itself and items that you wish to populate your screen with.
 

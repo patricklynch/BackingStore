@@ -1,7 +1,7 @@
 import UIKit
 import BackingStore
 
-class TodoDataSource: NSObject, UITableViewDataSource, BackingStoreDataSource {
+class TodoDataSource: NSObject, UITableViewDataSource, BackingStoreDecorator {
     
     let instructions = """
         Tap any row to mark the todo as complete.
@@ -25,7 +25,7 @@ class TodoDataSource: NSObject, UITableViewDataSource, BackingStoreDataSource {
     
     func onContentUpdated() {
         guard !allTodos.isEmpty else {
-            backingStore.update(itemsForSections: [:], dataSource: self)
+            backingStore.update(itemsForSections: [:])
             return
         }
         
@@ -37,8 +37,7 @@ class TodoDataSource: NSObject, UITableViewDataSource, BackingStoreDataSource {
                 .instructions: [instructions],
                 .completed: groupedTodos[.completed] ?? [],
                 .notCompleted: groupedTodos[.notCompleted] ?? [],
-            ],
-            dataSource: self
+            ]
         )
     }
     
@@ -52,8 +51,6 @@ class TodoDataSource: NSObject, UITableViewDataSource, BackingStoreDataSource {
     // MARK: - BackingStoreTodoDataSource
     
     let backingStore = BackingStore<SectionType>()
-    
-    var backingStoreView: BackingStoreView?
     
     func decorate(cell: UIView, at indexPath: IndexPath, animated: Bool) {
         if let cell = cell as? TodoCell,

@@ -2,20 +2,20 @@ import UIKit
 
 extension UITableView: BackingStoreView {
     
-    public func redecorateVisibleItems(in dataSource: BackingStoreDataSource, animated: Bool) {
+    public func redecorateVisibleItems(with decorator: BackingStoreDecorator, animated: Bool) {
         beginUpdates()
         for cell in visibleCells {
             if let indexPath = indexPath(for: cell) {
-                dataSource.decorate(cell: cell, at: indexPath, animated: animated)
+                decorator.decorate(cell: cell, at: indexPath, animated: animated)
             }
         }
         endUpdates()
     }
     
-    public func redecorateItems(section: Int, in dataSource: BackingStoreDataSource, animated: Bool) {
+    public func redecorateItems(section: Int, with decorator: BackingStoreDecorator, animated: Bool) {
         for cell in visibleCells {
             if let indexPath = indexPath(for: cell), indexPath.section == section {
-                dataSource.decorate(cell: cell, at: indexPath, animated: animated)
+                decorator.decorate(cell: cell, at: indexPath, animated: animated)
             }
         }
     }

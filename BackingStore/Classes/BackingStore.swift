@@ -28,6 +28,9 @@ public final class BackingStore<SectionType: Hashable & Comparable> {
         var visibleItems = NSOrderedSet()
     }
     
+    public weak var view: BackingStoreView?
+    public weak var decorator: BackingStoreDecorator?
+    
     public init() {}
     
     private var batchUpdateQueue: OperationQueue = {
@@ -116,16 +119,20 @@ public final class BackingStore<SectionType: Hashable & Comparable> {
         itemsForSections: [SectionType: [Any]],
         headers: [SectionType: Any]? = nil,
         footers: [SectionType: Any]? = nil,
-        dataSource: BackingStoreDataSource,
         animated: Bool = true,
         completion updateCompletion: (()->Void)? = nil) {
         
         guard animated else {
-            self.sections = self.sections(from: itemsForSections)
-            update(headers: headers, footers: footers)
-            dataSource.backingStoreView?.reloadAll(animated: false) {
+            guard let view = self.view, let decorator = self.decorator else {
+                assertionFailure("Cannot update backing store: The `view` or `decorator` property is missing.")
                 updateCompletion?()
-
+                return
+            }
+            view.redecorateVisibleItems(with: decorator, animated: false)
+            sections = self.sections(from: itemsForSections)
+            update(headers: headers, footers: footers)
+            view.reloadAll(animated: false) {
+                updateCompletion?()
             }
             return
         }
@@ -137,10 +144,6 @@ public final class BackingStore<SectionType: Hashable & Comparable> {
         }
         
         let batchUpdate = MainQueueBlockOperation { op in
-            guard let delegate = dataSource.backingStoreView else {
-                op.cancel()
-                return
-            }
             guard !op.isCancelled else {
                 return
             }
@@ -151,9 +154,10 @@ public final class BackingStore<SectionType: Hashable & Comparable> {
             self.update(headers: headers, footers: footers)
             
             DispatchQueue.global(qos: .userInitiated).async {
-                if let diff = BackingStoreDiff(from: oldValues, to: newValues) {
+                if let view = self.view,
+                    let diff = BackingStoreDiff(from: oldValues, to: newValues) {
                     DispatchQueue.main.async {
-                        delegate.update(diff: diff) {
+                        view.update(diff: diff) {
                             op.finish()
                         }
                     }
@@ -167,11 +171,13 @@ public final class BackingStore<SectionType: Hashable & Comparable> {
         batchUpdateQueue.addOperation(batchUpdate)
         
         let redeorate = MainQueueBlockOperation { redeorate in
-            guard let delegate = dataSource.backingStoreView, !redeorate.isCancelled else {
+            guard let view = self.view,
+                let decorator = self.decorator,
+                !redeorate.isCancelled else {
                 redeorate.finish()
                 return
             }
-            delegate.redecorateVisibleItems(in: dataSource, animated: true)
+            view.redecorateVisibleItems(with: decorator, animated: true)
             redeorate.finish()
         }
         redeorate.completionBlock = {
