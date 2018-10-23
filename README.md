@@ -2,7 +2,7 @@
 
 [![CI Status](https://img.shields.io/travis/patricklynch/BackingStore.svg?style=flat)](https://travis-ci.org/patricklynch/BackingStore)
 [![Version](https://img.shields.io/cocoapods/v/BackingStore.svg?style=flat)](https://cocoapods.org/pods/BackingStore)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)]
+![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)
 [![License](https://img.shields.io/cocoapods/l/BackingStore.svg?style=flat)](https://cocoapods.org/pods/BackingStore)
 [![Platform](https://img.shields.io/cocoapods/p/BackingStore.svg?style=flat)](https://cocoapods.org/pods/BackingStore)
 [![Language](https://img.shields.io/badge/swift-4.2-orange.svg)](https://developer.apple.com/swift)
