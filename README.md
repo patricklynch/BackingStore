@@ -39,15 +39,15 @@ Just like usual, this will provide the implementation of `UICollectionViewDataSo
 ```swift
 class TodoDataSource: NSObject, UITableViewDataSource {
 
-	// MARK: - UITableViewDataSource
+    // MARK: - UITableViewDataSource
 
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 0
-	}
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 0
+    }
 
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		fatalError("Nothing to do just yet.")
-	}
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        fatalError("Nothing to do just yet.")
+    }
 }
 ```
 
