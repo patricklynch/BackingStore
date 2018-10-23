@@ -205,7 +205,7 @@ class MyDataSource: NSObject, UITableViewDataSource, BackingStoreDataSource {
 
 ## Author
 
-patricklynch, pdlynch@gmail.com
+Patrick Lynch: pdlynch@gmail.com
 
 ## License
 
