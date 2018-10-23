@@ -5,11 +5,11 @@
 [![License](https://img.shields.io/cocoapods/l/BackingStore.svg?style=flat)](https://cocoapods.org/pods/BackingStore)
 [![Platform](https://img.shields.io/cocoapods/p/BackingStore.svg?style=flat)](https://cocoapods.org/pods/BackingStore)
 
-A set of components that model some data which is to be displayed in a `UICollectionView` or `UITableView`.  When that data changes, these components automatically calculate the changes necessary to perform a smooth, performant batch update.  This includes inserted sections, inserted index paths, deleted sections, deleted indexpaths and moved index paths.  What this means is that you never have to call `reloadData()` ever again, and every change you make to the contents of a table or collection view will be perfectly animated. Pretty cool, ain't it?
+`BackingStore` is a framework that automatically handles perfect batch updates in table views and collection views.  This is accomplished by providing an API for storing a model of a simple or complex data set that is to be displayed in a `UICollectionView` or `UITableView`.  When that data is updated, it automatically calculates a diff between old and new in the form of inserted sections, inserted index paths, deleted sections, deleted indexpaths and moved index paths.  It then automatically applies this diff to a `UITableView` or `UICollectionView` instance to perform a smooth, performant batch update.  What this means is that you never have to call `reloadData()` ever again, and every change you make to the contents of a table or collection view will be perfectly animated. Pretty cool, ain't it?
 
 ## Example
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.  The example projects demonstrates how to build a basic table view with a data source that contains a `BackingStore` instance.  It provides some actions that you can take to change the contents of the table view which are then updated by the `BackingStore` instance and its associated components.
+To run the example project, clone the repo, and run `pod install` from the Example directory first.  The example projects demonstrates how to build a basic table view with a data source that contains a `BackingStore` instance.  It loads data asynchronously from [JSONPlaceholder](https://jsonplaceholder.typicode.com/)—a fake online REST API for testing and prototyping.  It then provides some actions that you can take to change the contents of the table view which are then updated by the `BackingStore` instance and its associated components.  The code snippets used throughout this README.md come from the sample project.
 
 ## Installation
 
@@ -34,53 +34,54 @@ When `BackingStore` is used *properly* this error is impossible.  If you do stil
 ## Typical Setup Steps 
 
 ### Create a Data Source
-This will provide the usual implementation of `UICollectionViewDataSource` or `UITableViewDataSource`.
+Just like usual, this will provide the implementation of `UICollectionViewDataSource` or `UITableViewDataSource`.  In this example, we're going to display _todos_ in a table view that are loaded from this url:https://jsonplaceholder.typicode.com/todos.
 
 ```swift
-class MyDataSource: NSObject, UITableViewDataSource {
- 
-    // MARK: - UITableViewDataSource
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+class TodoDataSource: NSObject, UITableViewDataSource {
+
+	// MARK: - UITableViewDataSource
+
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return 0
+	}
+
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		fatalError("Nothing to do just yet.")
-    }
+	}
 }
 ```
 
 ### Create a `SectionType`
-`BackingStore` is a generic class that uses a generic type `SectionType` to uniquely identify each section to be displayed in a table or collection view.  You must therefore define a type for this purpose which must conform to `Hashable` and `Comparable` in order to satisfy the contraints on the generic `SectionType`.  In this example, let's suppose we are going to display a user's subscription settings which contains a basic description and some actions that can be taken.
+`BackingStore` is a generic class that uses a type `SectionType` to uniquely identify each section to be displayed in a table or collection view.  You must therefore define a type for this purpose which must conform to `Hashable` and `Comparable` in order to satisfy the contraints on the generic `SectionType`.  In this example, we'll have two sections for our _toods_ that are separated by completed and not completed.
 
 ```swift
-enum MySectionType: Int {
-    case description, actions
-    
-	static func < (lhs: MySectionType, rhs: MySectionType) -> Bool {
+enum SectionType: Int {
+	case notCompleted, completed
+
+	static func < (lhs: SectionType, rhs: SectionType) -> Bool {
 		return lhs.rawValue < rhs.rawValue
 	}
 }
 ``` 
-If the number of sections is dynamic—i.e. not fixed at compile time—use an enum with an associated value to provide the conformance to `Comparable`:
+If the number of sections is dynamic—i.e. not fixed at compile time—use an enum with an associated value to provide the conformance to `Comparable`.  This allows many sections identified by the case `group` plus the `index` associated value.
+
 ```swift
 enum MySectionType: Int {
-    static func < (lhs: SectionType2, rhs: SectionType2) -> Bool {
-        switch (lhs, rhs) {
-        case (.group(let lhsIndex), .group(let rhsIndex)):
-            return lhsIndex < rhsIndex
-        }
-    }
-    
-    case group(index: Int)
+	case group(index: Int)
+	
+	static func < (lhs: SectionType2, rhs: SectionType2) -> Bool {
+		switch (lhs, rhs) {
+		case (.group(let lhsIndex), .group(let rhsIndex)):
+			return lhsIndex < rhsIndex
+		}
+	}
 }
 ```
 
-However, if you will only be displaying one section, it is not required to create a type to be used as `BackingStore`s generic `SectionType`.  There exists a type which already serves this purpose called `SingleSectionType`.  `BackingStore` comes with an extended API that simplifies many of its primary functions for implementations that use `SingleSectionType` in order to be more convenient and create cleaner call sites for these simple cases.
+However, if you will only be displaying one section, it is not required to create a type to be used as `BackingStore`s generic `SectionType`.  There exists a type which already serves this purpose called `SingleSectionType`.  `BackingStore` comes with an extended API that simplifies many of its primary functions for implementations that use `SingleSectionType` in order to be more convenient.
 
 ### Create a `BackingStore` instance
-Now that you have a `SectionType` created (or if you'll be using `SingleSectionType`), you can create a `BackingStore` instance on your data source class.
+Now that you have a `SectionType` created (or if you'll be using `SingleSectionType`), we can create a `BackingStore` instance as a stored property on the data source class.
 
 For multiple sections:
 ```swift
@@ -93,9 +94,7 @@ let backingStore = BackingStore<SingleSectionType>()
 ```
 
 ### Conform to `BackingStoreDataSource`
-`BackingStoreDataSource` is a protocol that defines and object that can fit into this group of interrated components in order to allow batch updates to be executed once they are calculated by `BackingStore`.  It's requirements are simple, but essential to the functioning of this  logic.  Our `UITableViewDataSource` implementation defined above will also serve as the `BackingStoreDataSource` implementation.
-
-A key design of this framework is the idea is the decoupling between _dequeuing_ and _decorating_.  Typically these two tasks are done at the same time in the `tableView(_:cellForForAt:)` function.
+`BackingStoreDataSource` is a protocol that defines an objet which decorates the cells in a table view or collection view.  It also  A key design of this framework is the idea is the decoupling between _dequeuing_ and _decorating_.  Typically these two tasks are done at the same time in the `tableView(_:cellForForAt:)` function.
 
 ```swift
 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
