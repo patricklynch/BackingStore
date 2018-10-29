@@ -7,7 +7,9 @@
 [![Platform](https://img.shields.io/cocoapods/p/BackingStore.svg?style=flat)](https://cocoapods.org/pods/BackingStore)
 [![Language](https://img.shields.io/badge/swift-4.2-orange.svg)](https://developer.apple.com/swift)
 
-`BackingStore` is a framework that automatically handles perfect batch updates in table views and collection views.  This is accomplished by providing a method of storing a section-based data model set that is to be displayed in a `UICollectionView` or `UITableView`.  When that data is updated, it automatically calculates a diff between old and new in the form of inserted sections, inserted index paths, deleted sections, deleted indexpaths and moved index paths.  It then automatically applies this diff to a `UITableView` or `UICollectionView` instance to perform a smooth, performant batch update.  What this means is that you never have to call `reloadData()` ever again, and every change you make to the contents of a table or collection view will be perfectly animated. Pretty cool, ain't it?
+`BackingStore` is a framework that automatically handles perfect batch updates in table views and collection views.  This is accomplished by providing a method of storing a section-based data model that represents visible items to be displayed in a `UICollectionView` or `UITableView`.  When that data model is updated through `BackingStore`'s interface, it automatically calculates a diff between the old and new versions in the form of inserted sections, inserted index paths, deleted sections, deleted indexpaths and moved index paths.  It then automatically uses this diff to to perform a smooth, performant batch update in a `UITableView` or `UICollectionView` instance.  What this means is that you never have to call `reloadData()` ever again, and every change you make to the contents of a table or collection view will be perfectly animated.
+
+Pretty cool, ain't it?
 
 ## Example
 
@@ -67,14 +69,14 @@ If the number of sections is dynamic—i.e. not fixed at compile time—use an e
 
 ```swift
 enum MySectionType: Int {
-	case group(index: Int)
-	
-	static func < (lhs: SectionType2, rhs: SectionType2) -> Bool {
-		switch (lhs, rhs) {
-		case (.group(let lhsIndex), .group(let rhsIndex)):
-			return lhsIndex < rhsIndex
-		}
-	}
+    case group(index: Int)
+
+    static func < (lhs: SectionType2, rhs: SectionType2) -> Bool {
+        switch (lhs, rhs) {
+        case (.group(let lhsIndex), .group(let rhsIndex)):
+            return lhsIndex < rhsIndex
+        }
+    }
 }
 ```
 
