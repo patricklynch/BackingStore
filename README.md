@@ -111,7 +111,7 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
 }
 
 func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-	return myDataArray.count
+    return myDataArray.count
 }
 ```
 
@@ -151,17 +151,17 @@ class MyDataSource: NSObject, UITableViewDataSource, BackingStoreDecorator {
         if let cell = cell as? DescriptionCell,
             let data = backingStore.item(at: indexPath) as? DescriptionData {
 
-                // Decorate
-                cell.title = data.localizedText
-                cell.backgroundColor = .white
-                cell.addDropShadow()
+            // Decorate
+            cell.title = data.localizedText
+            cell.backgroundColor = .white
+            cell.addDropShadow()
 
-            } else if let cell = cell as? ActionCell,
-                let action = backingStore.item(at: indexPath) as? Action {
+        } else if let cell = cell as? ActionCell,
+            let action = backingStore.item(at: indexPath) as? Action {
 
-                // Decorate
-                cell.title = action.localizedText
-                cell.isEnabled = action.isEnabled
+            // Decorate
+            cell.title = action.localizedText
+            cell.isEnabled = action.isEnabled
         }
     }
 }
@@ -187,21 +187,21 @@ tableView.dataSource = dataSource
 ```swift
 class MyDataSource: NSObject, UITableViewDataSource, BackingStoreDataSource {
 
-	let dataService = MyDataService()
+    let dataService = MyDataService()
 
-	func loadData() {
-		dataService.loadData() { [weak self] result in
-			guard let result = result else { return }
-			
-			self?.backingStore.update(
-				itemsForSections: [
-					.description: [result.description],
-					.actions: result.actions
-				],
-				dataSource: self
-			)
-		}
-	}
+    func loadData() {
+        dataService.loadData() { [weak self] result in
+            guard let result = result else { return }
+
+            self?.backingStore.update(
+                itemsForSections: [
+                    .description: [result.description],
+                    .actions: result.actions
+                ],
+                dataSource: self
+            )
+        }
+    }
 }
 ```
 
