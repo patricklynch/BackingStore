@@ -124,8 +124,14 @@ class BackingStoreDiffTests: XCTestCase {
     }
     
     func testPerformanceExample() {
+        let oldValue: [TestSectionType: NSOrderedSet] = [
+            .one: ["a", "b", "c"]
+        ]
+        let newValue: [TestSectionType: NSOrderedSet] = [
+            .one: ["a", "b"]
+        ]
         self.measure() {
-            
+            _ = BackingStoreDiff(from: oldValue, to: newValue)
         }
     }
 }
